@@ -219,13 +219,31 @@
     <!-- Видео фон -->
     <div id="video-background">
         <video autoplay muted loop playsinline>
-            <source src="space_animation.mp4" type="video/mp4"> <!-- <-- УКАЖИ СВОЁ ИМЯ ВИДЕО -->
+            <source src="space_animation.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
     <!-- Кнопка управления звуком -->
-    <button id="toggle-audio-btn" class="btn" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">🔇 Выкл. звук</button>
+    <button id="toggle-audio-btn"
+            style="
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                width: 48px;
+                height: 48px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                color: white;
+                font-size: 20px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                transition: all 0.3s ease;
+            ">🔊</button>
 
     <!-- Блок 1: Главный экран -->
     <section id="hero">
@@ -258,7 +276,7 @@
         <div class="visual-block">
             <div class="crown-icon">👑</div>
         </div>
-        <p>Твой Управитель года — Венера, и она заняла самую высокую точку (10->
+        <p>Твой Управитель года — Венера, и она заняла самую высокую точку (10-й дом).</p>
         <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
             <li><strong>Блеск в делах:</strong> Твоя Шад-бала Венеры — 134%. Это значит, что твоего обаяния хватит, чтобы открыть любую дверь.</li>
             <li><strong>Нюанс:</strong> Венера в Овне импульсивна. Действуй красиво, но не руби с плеча. Твой успех в этом году — это смесь дипломатии и смелости</li>
@@ -276,7 +294,7 @@
         <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
             <li><strong>Что это значит?</strong> Год может подкидывать неожиданные задачки.</li>
             <li><strong>Совет:</strong> Будь внимателен к деталям в документах (Меркурий) и не ввязывайся в пустые споры (Марс).</li>
-            <li><strong>Бонус:</strong> Это положение дает невероятную интуицию. Слушай «нутро» — оно не подведет</li>
+            <li><strong>Бонус:</strong> Это положение дает невероятную интуицию. Слушай «нутро не подведет</li>
         </ul>
         <button class="btn" onclick="showSection('protection')">Продолжить</button>
     </section>
@@ -287,9 +305,9 @@
         <div class="visual-block">
             <div class="angel-wing">🕊️</div>
         </div>
-        <p>Юпитер в 12-м доме — это твой персональный ангел-хранитель. Его сила (Шад-бала) — рекордные 149%!</p>
+        <p>Юпитер12-м доме — это твой персональный ангел-хранитель. Его сила (Шад-бала) — рекордные 149%!</p>
         <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
-            <li><strong>Выход:</strong> Даже если кажется, что ситуация запуталась, выход найдется сам собой.</li>
+            <li><strong>Выход:</strong> Даже если запуталась, выход найдется сам собой.</li>
             <li><strong>Идеальное время:</strong> для обучения, медитаций и глубоких осознаний</li>
         </ul>
         <button class="btn" onclick="showSection('advice')">Завершить</button>
@@ -392,7 +410,7 @@
             "🔥 Энергия действия. Твой внутренний мотор прогрет. Направляй силу в работу, а не в споры.",
             "✍️ Магия рук. Сегодня все, к чему ты прикоснешься (от текста до ремонта), получится идеально.",
             "🌱 День питания. Отличное время для заботы о себе и накопления ресурсов. Ты растешь, даже когда отдыхаешь.",
-            "🕵️ Время Шерлока. Твой интеллект сегоднятое. Раскрой тайну или найди потерянную деталь.",
+            "🕵️ Время Шерлока. Твой интеллект сегодня видит скрытое. Раскрой тайну или найди потерянную деталь.",
             "📞 Удачный звонок. Одно короткое сообщение сегодня может запустить цепочку крутых событий."
         ];
 
@@ -400,7 +418,7 @@
             const randomIndex = Math.floor(Math.random() * fortunes.length);
             const fortuneDisplay = document.getElementById('fortune-display');
             fortuneDisplay.textContent = fortunes[randomIndex];
-            fortuneDisplay.style.animation = 'pulse 0.5s';
+            fortuneDisplay.style.animation = 'pulse ';
             setTimeout(() => {
                 fortuneDisplay.style.animation = '';
             }, 500);
@@ -410,17 +428,13 @@
         const video = document.querySelector('#video-background video');
         const audioBtn = document.getElementById('toggle-audio-btn');
 
-        let isMuted = false;
-
         audioBtn.addEventListener('click', () => {
-            if (isMuted) {
+            if (video.muted) {
                 video.muted = false;
-                audioBtn.textContent = '🔇 Выкл. звук';
-                isMuted = false;
+                audioBtn.innerHTML = '🔇';
             } else {
                 video.muted = true;
-                audioBtn.textContent = '🔊 Вкл. звук';
-                isMuted = true;
+                audioBtn.innerHTML = '🔊';
             }
         });
 
