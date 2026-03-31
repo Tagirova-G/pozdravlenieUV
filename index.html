@@ -8,8 +8,8 @@
         body {
             margin: 0;
             padding: 0;
-            color: white;
-            font-family: Arial, sans-serif;
+            color: #e0e7ff;
+            font-family: 'Segoe UI', sans-serif;
             overflow: hidden;
             position: relative;
         }
@@ -33,20 +33,32 @@
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
             background: linear-gradient(to right, #ff7eee, #7e7bff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
+        p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+
         .btn {
-            background: #ff6b6b;
+            background: linear-gradient(45deg, #7e7bff, #ff7eee);
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            border-radius: 50px;
             cursor: pointer;
             margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -58,9 +70,9 @@
     </video>
 
     <div class="content">
-        <h1>С Днём Рождения!</h1>
-        <p>Твой Космический Навигатор: 2026</p>
-        <button class="btn" onclick="this.textContent='Звук включён'; this.disabled=true; document.getElementById('video-bg').muted=false;">
+        <h1>Твой Космический Навигатор: 2026</h1>
+        <p>Год, когда звезды работают на тебя. Это не просто гороскоп — это твоя персональная карта Варшапхалы. В центре событий — Ты.</p>
+        <button class="btn" onclick="document.getElementById('video-bg').muted=false; this.textContent='Звук включён'; this.disabled=true;">
             🔊 Включить звук
         </button>
     </div>
