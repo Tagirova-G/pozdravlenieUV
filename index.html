@@ -5,31 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Твой Космический Навигатор: 2026</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
             color: #e0e7ff;
-            font-family: 'Segoe UI', sans-serif;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
-        #video-bg {
+        #video-background video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            z-index: -2;
+        }
+
+        #video-background::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 15, 44, 0.6);
             z-index: -1;
         }
 
-        .content {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 4rem 2rem;
             position: relative;
             z-index: 1;
-            text-align: center;
-            padding: 20px;
-            margin-top: 20vh;
+        }
+
+        #hero {}
+
+        #starfield {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .constellation {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+        }
+
+        .constellation .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
         }
 
         h1 {
@@ -40,42 +91,344 @@
             -webkit-text-fill-color: transparent;
         }
 
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #b3b3ff;
+        }
+
         p {
             font-size: 1.2rem;
+            line-height: 1.8;
             max-width: 800px;
-            margin: 0 auto 1rem;
+            margin: 1rem auto;
         }
 
         .btn {
             background: linear-gradient(45deg, #7e7bff, #ff7eee);
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 1.1rem;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
             border-radius: 50px;
             cursor: pointer;
-            margin-top: 20px;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
         }
 
         .btn:hover {
             transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(126, 123, 255, 0.3);
+        }
+
+        .visual-block {
+            width: 200px;
+            height: 200px;
+            margin: 2rem auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .human-silhouette {
+            background: radial-gradient(circle, #7e7bff, transparent);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            animation: glow 2s infinite alternate;
+        }
+
+        .crown-icon {
+            font-size: 4rem;
+            color: gold;
+            text-shadow: 0 0 20px gold;
+        }
+
+        .lightning-icon {
+            font-size: 4rem;
+            color: #ffcc00;
+            animation: pulse 1s infinite;
+        }
+
+        .angel-wing {
+            font-size: 5rem;
+            color: #ffffff;
+            opacity: 0.7;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px #7e7bff; }
+            to { box-shadow: 0 0 30px #7e7bff, 0 0 60px #7e7bff; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin: 2rem auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        th {
+            background: rgba(126, 123, 255, 0.3);
+        }
+
+        #lucky-btn {
+            background: linear-gradient(45deg, #ffcc00, #ff9500);
+            color: #0a0f2c;
+            font-weight: bold;
+            margin: 2rem 0;
+        }
+
+        #fortune-display {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            p { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <video id="video-bg" autoplay muted loop playsinline>
-        <source src="space_animation.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
-    </video>
-
-    <div class="content">
-        <h1>Твой Космический Навигатор: 2026</h1>
-        <p>Год, когда звезды работают на тебя. Это не просто гороскоп — это твоя персональная карта Варшапхалы. В центре событий — Ты.</p>
-        <button class="btn" onclick="document.getElementById('video-bg').muted=false; this.textContent='Звук включён'; this.disabled=true;">
-            🔊 Включить звук
-        </button>
+    <!-- Видео фон -->
+    <div id="video-background">
+        <video autoplay loop playsinline>
+            <source src="space_animation.mp4" type="video/mp4"> <!-- <-- УКАЖИ СВОЁ ИМЯ ВИДЕО -->
+            Your browser does not support the video tag.
+        </video>
     </div>
 
+    <!-- Кнопка управления звуком -->
+    <button id="toggle-audio-btn" class="btn" style="position: fixed; top: 20px; right: 20px; z-index: 1000;">🔇 Выкл. звук</button>
+
+    <!-- Блок 1: Главный экран -->
+    <section id="hero">
+        <div id="starfield"></div>
+        <div class="constellation" id="cancer-constellation"></div>
+        <h1>Твой Космический Навигатор: 2026</h1>
+        <p>Год, когда звезды работают на тебя.</p>
+        <p>Это не просто гороскоп. Это твоя персональная карта Варшапхалы. В центре событий в этом году — Ты. Приготовься к большому путешествию!</p>
+        <button class="btn" onclick="showSection('manifest')">Активировать прогноз</button>
+    </section>
+
+    <!-- Блок 2: Манифест Личности -->
+    <section id="manifest" style="display:none;">
+        <h2>Год Твоего «Я»</h2>
+        <div class="visual-block">
+            <div class="human-silhouette"></div>
+        </div>
+        <p>В этом году точка твоего роста (Мунтха) попала в 1-й дом. Это редкий и мощный шанс! Весь мир будет подстраиваться под твои желания.</p>
+        <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
+            <li><strong>Твоя суперсила:</strong> Харизма и личная инициатива.</li>
+            <li><strong>Твоя стратегия:</strong> Ставить себя на первое место.</li>
+            <li><strong>Результат:</strong> Перезагрузка имиджа и мощный внутренний апгрейд</li>
+        </ul>
+        <button class="btn" onclick="showSection('career')">Продолжить</button>
+    </section>
+
+    <!-- Блок 3: Карьерный Олимп -->
+    <section id="career" style="display:none;">
+        <h2>Твой Пропуск в Высшую Лигу</h2>
+        <div class="visual-block">
+            <div class="crown-icon">👑</div>
+        </div>
+        <p>Твой Управитель года — Венера, и она заняла самую высокую точку (10->
+        <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
+            <li><strong>Блеск в делах:</strong> Твоя Шад-бала Венеры — 134%. Это значит, что твоего обаяния хватит, чтобы открыть любую дверь.</li>
+            <li><strong>Нюанс:</strong> Венера в Овне импульсивна. Действуй красиво, но не руби с плеча. Твой успех в этом году — это смесь дипломатии и смелости</li>
+        </ul>
+        <button class="btn" onclick="showSection('transformation')">Дальше</button>
+    </section>
+
+    <!-- Блок  Турбулентности -->
+    <section id="transformation" style="display:none;">
+        <h2>Скрытые Резервы</h2>
+        <div class="visual-block">
+            <div class="lightning-icon">⚡</div>
+        </div>
+        <p>В 8-м доме (доме трансформаций) собралась мощная компания: Марс, Меркурий и Раху.</p>
+        <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
+            <li><strong>Что это значит?</strong> Год может подкидывать неожиданные задачки.</li>
+            <li><strong>Совет:</strong> Будь внимателен к деталям в документах (Меркурий) и не ввязывайся в пустые споры (Марс).</li>
+            <li><strong>Бонус:</strong> Это положение дает невероятную интуицию. Слушай «нутро» — оно не подведет</li>
+        </ul>
+        <button class="btn" onclick="showSection('protection')">Продолжить</button>
+    </section>
+
+    <!-- Блок 5: Защита -->
+    <section id="protection" style="display:none;">
+        <h2>Под Присмотром Высших Сил</h2>
+        <div class="visual-block">
+            <div class="angel-wing">🕊️</div>
+        </div>
+        <p>Юпитер в 12-м доме — это твой персональный ангел-хранитель. Его сила (Шад-бала) — рекордные 149%!</p>
+        <ul style="text-align: left; max-width: 600px; margin: 1rem auto;">
+            <li><strong>Выход:</strong> Даже если кажется, что ситуация запуталась, выход найдется сам собой.</li>
+            <li><strong>Идеальное время:</strong> для обучения, медитаций и глубоких осознаний</li>
+        </ul>
+        <button class="btn" onclick="showSection('advice')">Завершить</button>
+    </section>
+
+    <!-- Блок 6: Финальное Пожелание -->
+    <section id="advice" style="display:none;">
+        <h2>Твой План на 2026</h2>
+        <table>
+            <tr>
+                <th>Направление</th>
+                <th>Совет на год</th>
+            </tr>
+            <tr>
+                <td>Финансы</td>
+                <td>Инвестируй в знания, а не в эмоции.</td>
+            </tr>
+            <tr>
+                <td>Отношения</td>
+                <td>Будь мягче в словах, Кету во 2-м доме любит тишину.</td>
+            </tr>
+            <tr>
+                <td>Здоровье</td>
+                <td>Слушай свое тело, Рак в Лагне требует заботы.</td>
+            </tr>
+            <tr>
+                <td>Удача</td>
+                <td>Твои друзья — планирование и системность.</td>
+            </tr>
+        </table>
+        
+        <button id="lucky-btn" class="btn" onclick="showFortune()">Кнопка Удачи 🎯</button>
+        <div id="fortune-display">Нажми кнопку, чтобы получить космическое сообщение!</div>
+    </section>
+
+    <script>
+        // Create starry background
+        function createStarField() {
+            const starfield = document.getElementById('starfield');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.opacity = Math.random();
+                star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite`;
+                starfield.appendChild(star);
+            }
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes twinkle {
+                    0%, 100% { opacity: 0.2; }
+                    50% { opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // Create Cancer constellation
+        function createCancerConstellation() {
+            const constellation = document.getElementById('cancer-constellation');
+            const positions = [
+                {x: 20, y: 30}, {x: 40, y: 20}, {x: 60, y: 30},
+                {x: 30, y: 60}, {x: 50, y: 70}, {x: 70, y: 60}
+            ];
+            
+            positions.forEach(pos => {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = '8px';
+                star.style.height = '8px';
+                star.style.left = pos.x + 'px';
+                star.style.top = pos.y + 'px';
+                star.style.boxShadow = '0 0 10px yellow';
+                constellation.appendChild(star);
+            });
+        }
+
+        // Navigation between sections
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'flex';
+        }
+
+        // Fortune messages
+        const fortunes = [
+            "🛡️ Максимальная защита! Твой «ангел-хранитель» сегодня работает на 149%. Любая проблема решится самой собой.",
+            "🌊 Волна интуиции. Сегодня твое предчувствие острее любого логического вывода. Доверься внутреннему голосу.",
+            "✨ Эффект суперзвезды. Варшеша в 10-м доме! Идеальный момент, чтобы заявить о себе или попросить о повышении.",
+            "🏗️ Фундамент успеха. Сатурн в 9-м доме дает «зеленый свет» долгим проектам. Сегодняшнее усилие окупится вдвойне.",
+            "☀️ В центре внимания. Твое Солнце в Ревати дает мягкую, но непреклонную силу. Свети и согревай окружающих.",
+            "🚀 Твой выход! Мунтха в Лагне — это джекпот. Делай то, что давно откладывал, Вселенная поддержит.",
+            "🔥 Энергия действия. Твой внутренний мотор прогрет. Направляй силу в работу, а не в споры.",
+            "✍️ Магия рук. Сегодня все, к чему ты прикоснешься (от текста до ремонта), получится идеально.",
+            "🌱 День питания. Отличное время для заботы о себе и накопления ресурсов. Ты растешь, даже когда отдыхаешь.",
+            "🕵️ Время Шерлока. Твой интеллект сегоднятое. Раскрой тайну или найди потерянную деталь.",
+            "📞 Удачный звонок. Одно короткое сообщение сегодня может запустить цепочку крутых событий."
+        ];
+
+        function showFortune() {
+            const randomIndex = Math.floor(Math.random() * fortunes.length);
+            const fortuneDisplay = document.getElementById('fortune-display');
+            fortuneDisplay.textContent = fortunes[randomIndex];
+            fortuneDisplay.style.animation = 'pulse 0.5s';
+            setTimeout(() => {
+                fortuneDisplay.style.animation = '';
+            }, 500);
+        }
+
+        // Toggle audio button functionality
+        const video = document.querySelector('#video-background video');
+        const audioBtn = document.getElementById('toggle-audio-btn');
+
+        let isMuted = false;
+
+        audioBtn.addEventListener('click', () => {
+            if (isMuted) {
+                video.muted = false;
+                audioBtn.textContent = '🔇 Выкл. звук';
+                isMuted = false;
+            } else {
+                video.muted = true;
+                audioBtn.textContent = '🔊 Вкл. звук';
+                isMuted = true;
+            }
+        });
+
+        // Initialize on load
+        window.onload = function() {
+            createStarField();
+            createCancerConstellation();
+        };
+    </script>
 </body>
 </html>
